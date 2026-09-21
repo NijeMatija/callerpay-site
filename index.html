@@ -1,0 +1,59 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>CallerPay — Launch with Callers</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+ body{font-family:ui-sans-serif,system-ui;background:#0b0b0e;color:#e8e8ea;margin:0;padding:24px}
+ .box{max-width:640px;margin:0 auto}
+ h1{font-size:1.3rem;margin:0 0 4px} .sub{color:#9a9aa2;font-size:.85rem;margin-bottom:18px}
+ label{display:block;font-size:.72rem;color:#9a9aa2;margin:12px 0 3px;text-transform:uppercase;letter-spacing:.04em}
+ input,select{width:100%;box-sizing:border-box;background:#15151a;border:1px solid #2a2a33;border-radius:8px;color:#e8e8ea;padding:9px;font-size:.9rem}
+ .row{display:flex;gap:10px}.row>*{flex:1}
+ .split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+ .bar{height:10px;border-radius:6px;background:#1f1f26;overflow:hidden;display:flex;margin-top:10px}
+ .bar i{display:block;height:100%} .legend{font-size:.72rem;color:#9a9aa2;margin-top:4px}
+ button{width:100%;margin-top:18px;background:#7c5cff;border:0;border-radius:9px;color:#fff;font-weight:700;padding:13px;font-size:1rem;cursor:pointer}
+ button:hover{background:#8f73ff}
+ .out{margin-top:12px;font-size:.72rem;word-break:break-all;color:#6f6f78;background:#101014;border:1px solid #2a2a33;border-radius:8px;padding:8px}
+ .note{font-size:.72rem;color:#6f6f78;margin-top:14px;line-height:1.5}
+ .ok{color:#3ddc97}
+</style></head><body><div class="box">
+<h1>Launch a coin that pays its callers</h1>
+<div class="sub">Fills the Bags launch form for you: your share + a caller reward pool funded from your own trading fees. Nothing upfront.</div>
+<label>Coin name</label><input id="name" placeholder="e.g. Wage Dog" maxlength="32">
+<div class="row"><div><label>Ticker</label><input id="ticker" placeholder="WAGE" maxlength="10"></div>
+<div><label>Image URL</label><input id="image" placeholder="https://…"></div></div>
+<label>Your X (for fee claim + calls)</label><input id="xhandle" placeholder="@yourhandle">
+<div class="split">
+ <div><label>Creator share %</label><input id="cpct" type="number" value="55" min="10" max="95"></div>
+ <div><label>Caller pool % (of 1% fees)</label><input id="spct" type="number" value="45" min="5" max="90"></div>
+</div>
+<div class="bar"><i id="b1" style="background:#7c5cff"></i><i id="b2" style="background:#3ddc97"></i></div>
+<div class="legend" id="legend"></div>
+<button id="go">Generate launch link →</button>
+<div class="out" id="url" style="display:none"></div>
+<div class="note">You sign the launch yourself in Bags — we never custody funds. Caller pool is distributed automatically by the CallerPay crank to verified early X calls, every payout an on-chain receipt. <span class="ok">No upfront marketing spend.</span></div>
+</div>
+<script>
+ const $=id=>document.getElementById(id);
+ function upd(){const c=+$('cpct').value||0,s=+$('spct').value||0;
+  $('b1').style.width=c+'%';$('b2').style.width=s+'%';
+  $('legend').textContent=`fees: ${c}% you · ${s}% caller rewards${(c+s)!==100?' — ⚠ sum ≠ 100':''}`;}
+ ['cpct','spct'].forEach(i=>$(i).addEventListener('input',upd));upd();
+ $('go').onclick=()=>{
+  const h=$('xhandle').value.replace('@','');
+  if(!$('name').value||!$('ticker').value||!h){alert('name, ticker, X handle required');return;}
+  const u=new URL('https://bags.fm/launch');
+  u.searchParams.set('intent','true');
+  u.searchParams.set('name',$('name').value);
+  u.searchParams.set('ticker',$('ticker').value.toUpperCase());
+  if($('image').value)u.searchParams.set('image',$('image').value);
+  u.searchParams.set('website','https://callerpay.fun');
+  const fs=[{allocationBps:Math.round((100-+$('spct').value)*100),platform:'twitter',username:h}];
+  if(+$('spct').value>0)fs.push({allocationBps:Math.round(+$('spct').value*100),platform:'twitter',username:'callerpay'});
+  u.searchParams.set('feeShare',JSON.stringify(fs));
+  u.searchParams.set('feeMode','DEFAULT');
+  $('url').style.display='block';
+  $('url').textContent='→ '+u.toString();
+  const a=document.createElement('a');a.href=u.toString();a.target='_blank';a.click();
+ };
+</script></body></html>
