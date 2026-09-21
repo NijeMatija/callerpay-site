@@ -32,7 +32,18 @@
 <button id="go">Generate launch link →</button>
 <div class="out" id="url" style="display:none"></div>
 <div class="note">You sign the launch yourself in Bags — we never custody funds. Caller pool is distributed automatically by the CallerPay crank to verified early X calls, every payout an on-chain receipt. <span class="ok">No upfront marketing spend.</span></div>
+<h2 style="font-size:.95rem;margin:26px 0 6px;color:#7c5cff">Who actually earns (live Bags data)</h2>
+<div class="out" id="proof" style="display:none;color:#9a9aa2"></div>
+<div class="note" id="proof2" style="display:none"></div>
 </div>
+<script>
+fetch('data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+ const p=document.getElementById('proof'),p2=document.getElementById('proof2');
+ const f=d.fees.slice(0,8).map(x=>`${x.symbol} — ${x.sol.toFixed(3)} SOL lifetime creator fees`).join('\n');
+ p.style.display='block';p.textContent=(f||'(no fee coins in sample today)');
+ p2.style.display='block';p2.textContent=`Sampled ${Math.max(d.fees.length,30)} launches. Top coins earn meaningful creator fees; the tail earns ~zero — that's why paying callers from YOUR volume beats paying KOLs upfront. Updated ${new Date(d.updated).toLocaleString()}.`;
+}).catch(()=>{});
+</script>
 <script>
  const $=id=>document.getElementById(id);
  function upd(){const c=+$('cpct').value||0,s=+$('spct').value||0;

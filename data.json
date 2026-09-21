@@ -1,0 +1,155 @@
+{
+ "updated": "2026-09-21T22:19:57.616Z",
+ "fees": [
+  {
+   "symbol": "OZI",
+   "name": "0xOzi",
+   "sol": 0.3765,
+   "mint": "F6pkdpC5CLNUezF1c3M5yKnDch1Ed76jz7THvfnhBAGS"
+  },
+  {
+   "symbol": "TEST",
+   "name": "TEST",
+   "sol": 0.3494,
+   "mint": "5zcRp4DT5fwq5Q7Uaan6Rmsh9WfeGJVZMsnhX9XjBAGS"
+  },
+  {
+   "symbol": "AVERY",
+   "name": "The Poke Kid",
+   "sol": 0.1473,
+   "mint": "GGERCJ4QEMZBPntRYwPvt4A257vgZB3518d8tg9hBAGS"
+  },
+  {
+   "symbol": "PUMPSOL",
+   "name": "PumpSol",
+   "sol": 0.066,
+   "mint": "CCUYazMWkfnaGdjSgHFmMH6e32ybFWbWSufb4SiGBAGS"
+  },
+  {
+   "symbol": "PURRSCHE",
+   "name": "purrsche",
+   "sol": 0.0658,
+   "mint": "DJGT4GSMyibA7mUi7ujGRNKAFAVJ4zKPxyeMv51iBAGS"
+  },
+  {
+   "symbol": "CUPSEYY",
+   "name": "Cupsey",
+   "sol": 0.042,
+   "mint": "ADwFow5jwRv4DrK9RoqKAnT5bYjScxCGokEYWxG7BAGS"
+  },
+  {
+   "symbol": "APEX",
+   "name": "Apex",
+   "sol": 0.0416,
+   "mint": "BwdUq5VxDJEjgHXzo2muJfHJjUDqNryXaUy5bk1tBAGS"
+  },
+  {
+   "symbol": "SOLBG",
+   "name": "solbug",
+   "sol": 0.0392,
+   "mint": "881K4wRgsyanNiCYYda4C3DwxesiavxysswFaG4bBAGS"
+  },
+  {
+   "symbol": "TSLA",
+   "name": "teslabot",
+   "sol": 0.036,
+   "mint": "xu5GfMESAmqau3kk422RYEEmLH9d5KrnBLJdbtfBAGS"
+  },
+  {
+   "symbol": "BATU",
+   "name": "BATU",
+   "sol": 0.0287,
+   "mint": "23f8g8Nfr9aS7y3woKjSBfyP528w1qqKtZJSDefUBAGS"
+  },
+  {
+   "symbol": "DAWN",
+   "name": "Sentient Dawn",
+   "sol": 0.0179,
+   "mint": "9Lv3LVG24pouaNZusLVeaRWudhDZgP2DpmJ8Z2GCBAGS"
+  },
+  {
+   "symbol": "TRUMP",
+   "name": "TRUMP",
+   "sol": 0.0111,
+   "mint": "Fiztk3TebQy6vkNfNnnm2SqH9ky2abgyaFMUbFB4BAGS"
+  },
+  {
+   "symbol": "OG",
+   "name": "OG",
+   "sol": 0.0094,
+   "mint": "5V74GPGKzq2FSUApcZGU4CcxR7U5mHs5RGGssSFYBAGS"
+  },
+  {
+   "symbol": "SBC",
+   "name": "SchoolBagCoin",
+   "sol": 0.0078,
+   "mint": "BED8DNAmPV5WjRXTpz7bW9vUeae4QiyU4a838bPcBAGS"
+  },
+  {
+   "symbol": "LAMA",
+   "name": "LAMADA",
+   "sol": 0.001,
+   "mint": "YncnnmFNEp951ukVe95PHbLmTSwkV3QaHdod4zMBAGS"
+  },
+  {
+   "symbol": "MAMACITA",
+   "name": "Mamacita$$",
+   "sol": 0.0009,
+   "mint": "7mU8Uom3wPgG33oRC2GSNSwkpzc8gVLhmjNJz3RLBAGS"
+  },
+  {
+   "symbol": "WOOF",
+   "name": "woof in da hood",
+   "sol": 0.0008,
+   "mint": "2QoTEAoh3khSdXzkEmbS7qXSBwA1c2PC6VPCbXdyBAGS"
+  },
+  {
+   "symbol": "REALATAR",
+   "name": "REALATAR™",
+   "sol": 0.0005,
+   "mint": "2TeSfzk9uVm4ewVuAM84rsiDToTfxjK59hScLv1tBAGS"
+  },
+  {
+   "symbol": "MEAT",
+   "name": "MEAT",
+   "sol": 0.0002,
+   "mint": "6fn48mXS3S2ZsmwFPxqfTGHdivoXLDiQsmMedAvsBAGS"
+  },
+  {
+   "symbol": "TURBO",
+   "name": "Turbo Snail",
+   "sol": 0.0002,
+   "mint": "HDv52f4Wh75Gei4Era4bJjPp3U4VjhNPjMaxUCzKBAGS"
+  },
+  {
+   "symbol": "COSMIC",
+   "name": "Cosmic Otter",
+   "sol": 0.0002,
+   "mint": "91Hj5vorn5i4EZCK8LbXwKh7a3gqwpcjruZUi77ZBAGS"
+  },
+  {
+   "symbol": "BICEPS",
+   "name": "Biceps for real",
+   "sol": 0.0002,
+   "mint": "J5zj8AJZWUbCovwpJiJhMV4j9TBWaZ36Pv6zYqcXBAGS"
+  },
+  {
+   "symbol": "JEV",
+   "name": "JEV",
+   "sol": 0,
+   "mint": "FYinVJv37fKjHQRUfz36A6PMmHR6UKPzSyb7gJhgBAGS"
+  }
+ ],
+ "calls": [
+  {
+   "handle": "a1lon9",
+   "symbol": "GTAVI",
+   "score": 5.926
+  },
+  {
+   "handle": "paypercallfun",
+   "symbol": "GTAVI",
+   "score": 3.008
+  }
+ ]
+}
