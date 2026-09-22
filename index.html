@@ -6,65 +6,63 @@
  .box{max-width:640px;margin:0 auto}
  h1{font-size:1.3rem;margin:0 0 4px} .sub{color:#9a9aa2;font-size:.85rem;margin-bottom:18px}
  label{display:block;font-size:.72rem;color:#9a9aa2;margin:12px 0 3px;text-transform:uppercase;letter-spacing:.04em}
- input,select{width:100%;box-sizing:border-box;background:#15151a;border:1px solid #2a2a33;border-radius:8px;color:#e8e8ea;padding:9px;font-size:.9rem}
+ input{width:100%;box-sizing:border-box;background:#15151a;border:1px solid #2a2a33;border-radius:8px;color:#e8e8ea;padding:9px;font-size:.9rem}
  .row{display:flex;gap:10px}.row>*{flex:1}
  .split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
  .bar{height:10px;border-radius:6px;background:#1f1f26;overflow:hidden;display:flex;margin-top:10px}
  .bar i{display:block;height:100%} .legend{font-size:.72rem;color:#9a9aa2;margin-top:4px}
  button{width:100%;margin-top:18px;background:#7c5cff;border:0;border-radius:9px;color:#fff;font-weight:700;padding:13px;font-size:1rem;cursor:pointer}
- button:hover{background:#8f73ff}
- .out{margin-top:12px;font-size:.72rem;word-break:break-all;color:#6f6f78;background:#101014;border:1px solid #2a2a33;border-radius:8px;padding:8px}
- .note{font-size:.72rem;color:#6f6f78;margin-top:14px;line-height:1.5}
- .ok{color:#3ddc97}
+ .out{margin-top:12px;font-size:.78rem;word-break:break-all;color:#c8c8d0;background:#101014;border:1px solid #2a2a33;border-radius:8px;padding:8px;white-space:pre-wrap}
+ .note{font-size:.78rem;color:#9a9aa2;margin-top:14px;line-height:1.5}
 </style></head><body><div class="box">
-<h1>Launch a coin that pays its callers</h1>
-<div class="sub">Fills the Bags launch form for you: your share + a caller reward pool funded from your own trading fees. Nothing upfront.</div>
+<h1>CallerPay</h1>
+<div class="sub">This page only builds a Bags link. It does not launch a coin and it does not move money.</div>
 <label>Coin name</label><input id="name" placeholder="e.g. Wage Dog" maxlength="32">
 <div class="row"><div><label>Ticker</label><input id="ticker" placeholder="WAGE" maxlength="10"></div>
 <div><label>Image URL</label><input id="image" placeholder="https://…"></div></div>
-<label>Your X (for fee claim + calls)</label><input id="xhandle" placeholder="@yourhandle">
+<label>Your X handle</label><input id="xhandle" placeholder="@yourhandle">
 <div class="split">
- <div><label>Creator share %</label><input id="cpct" type="number" value="55" min="10" max="95"></div>
- <div><label>Caller pool % (of 1% fees)</label><input id="spct" type="number" value="45" min="5" max="90"></div>
+ <div><label>Your share %</label><input id="cpct" type="number" value="55" min="0" max="100"></div>
+ <div><label>Caller pool % (not wired yet)</label><input id="spct" type="number" value="45" min="0" max="100"></div>
 </div>
 <div class="bar"><i id="b1" style="background:#7c5cff"></i><i id="b2" style="background:#3ddc97"></i></div>
 <div class="legend" id="legend"></div>
-<button id="go">Generate launch link →</button>
+<button id="go">Show link</button>
 <div class="out" id="url" style="display:none"></div>
-<div class="note">You sign the launch yourself in Bags — we never custody funds. Caller pool is distributed automatically by the CallerPay crank to verified early X calls, every payout an on-chain receipt. <span class="ok">No upfront marketing spend.</span></div>
-<h2 style="font-size:.95rem;margin:26px 0 6px;color:#7c5cff">Who actually earns (live Bags data)</h2>
-<div class="out" id="proof" style="display:none;color:#9a9aa2"></div>
-<div class="note" id="proof2" style="display:none"></div>
+<div class="note">Do not launch real money from this yet. The caller pool is not attached, because CallerPay does not control a Bags account. You would still sign everything yourself on Bags.</div>
+<h2 style="font-size:.95rem;margin:26px 0 6px">Who earns fees on Bags right now</h2>
+<div class="out" id="proof" style="display:none"></div>
+<div class="note" id="proof2"></div>
 </div>
 <script>
-fetch('data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
- const p=document.getElementById('proof'),p2=document.getElementById('proof2');
- const f=d.fees.slice(0,8).map(x=>`${x.symbol} — ${x.sol.toFixed(3)} SOL lifetime creator fees`).join('\n');
- p.style.display='block';p.textContent=(f||'(no fee coins in sample today)');
- p2.style.display='block';p2.textContent=`Sampled ${Math.max(d.fees.length,30)} launches. Top coins earn meaningful creator fees; the tail earns ~zero — that's why paying callers from YOUR volume beats paying KOLs upfront. Updated ${new Date(d.updated).toLocaleString()}.`;
-}).catch(()=>{});
-</script>
-<script>
  const $=id=>document.getElementById(id);
- function upd(){const c=+$('cpct').value||0,s=+$('spct').value||0;
-  $('b1').style.width=c+'%';$('b2').style.width=s+'%';
-  $('legend').textContent=`fees: ${c}% you · ${s}% caller rewards${(c+s)!==100?' — ⚠ sum ≠ 100':''}`;}
- ['cpct','spct'].forEach(i=>$(i).addEventListener('input',upd));upd();
+ function upd(){
+  const c=+$('cpct').value||0, s=+$('spct').value||0;
+  $('b1').style.width=Math.max(0,Math.min(100,c))+'%';
+  $('b2').style.width=Math.max(0,Math.min(100,s))+'%';
+  $('legend').textContent=`${c}% you · ${s}% callers`+(Math.round(c+s)!==100?' — must add to 100':'');
+ }
+ ['cpct','spct'].forEach(i=>$(i).addEventListener('input',upd));
+ upd();
  $('go').onclick=()=>{
-  const h=$('xhandle').value.replace('@','');
-  if(!$('name').value||!$('ticker').value||!h){alert('name, ticker, X handle required');return;}
+  const h=$('xhandle').value.replace('@','').trim();
+  const c=+$('cpct').value||0, s=+$('spct').value||0;
+  if(!$('name').value||!$('ticker').value||!h){alert('name, ticker and X handle are required');return;}
+  if(Math.round(c+s)!==100){alert('your share and the caller pool must add to 100');return;}
   const u=new URL('https://bags.fm/launch');
   u.searchParams.set('intent','true');
   u.searchParams.set('name',$('name').value);
   u.searchParams.set('ticker',$('ticker').value.toUpperCase());
-  if($('image').value)u.searchParams.set('image',$('image').value);
-  u.searchParams.set('website','https://callerpay.fun');
-  const fs=[{allocationBps:Math.round((100-+$('spct').value)*100),platform:'twitter',username:h}];
-  if(+$('spct').value>0)fs.push({allocationBps:Math.round(+$('spct').value*100),platform:'twitter',username:'callerpay'});
-  u.searchParams.set('feeShare',JSON.stringify(fs));
-  u.searchParams.set('feeMode','DEFAULT');
+  if($('image').value) u.searchParams.set('image',$('image').value);
+  u.searchParams.set('twitter','https://x.com/'+h);
+  u.searchParams.set('website','https://nijematija.github.io/callerpay-site/');
   $('url').style.display='block';
-  $('url').textContent='→ '+u.toString();
-  const a=document.createElement('a');a.href=u.toString();a.target='_blank';a.click();
+  $('url').textContent='Preview only. Caller pool is not attached. '+u.toString();
  };
+ fetch('data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  const rows=(d.fees||[]).slice(0,8).map(x=>x.symbol+' — '+Number(x.sol).toFixed(3)+' SOL creator fees').join('\n');
+  $('proof').style.display='block';
+  $('proof').textContent=rows||'no fee coins in this sample';
+  $('proof2').textContent='These are Bags creator fees, not CallerPay payouts. Updated '+new Date(d.updated).toLocaleString();
+ }).catch(()=>{$('proof2').textContent='Fee sample not loaded.';});
 </script></body></html>
